@@ -2279,7 +2279,7 @@ box_hit:AddDropdown("hit_t",{ Text="Target", Default=1, Values={"Head","Humanoid
 local box_fov = tab_combat:AddRightGroupbox("FOV Circle")
 tgl(box_fov, "fov_e", "FOV Circle", "Visual FOV reference on screen.", function(v) config.fov_circle=v; if v then Combat.start_fov_circle() else Combat.stop_fov_circle() end end)
 box_fov:AddSlider("fov_r", { Text="Radius", Default=120, Min=20, Max=800, Rounding=0 }):OnChanged(function(v) config.fov_circle_radius=v end)
-box_fov:AddColorPicker("fov_col", { Default=Color3.fromRGB(255,255,255), Title="Color" }):OnChanged(function(v) config.fov_circle_color=v end)
+pcall(function() box_fov:AddLabel("Color"):AddColorPicker("fov_col", { Default=Color3.fromRGB(255,255,255), Title="Color" }):OnChanged(function(v) config.fov_circle_color=v end) end)
 
 local box_parry = tab_combat:AddRightGroupbox("Auto Parry")
 tgl(box_parry, "parry_e", "Auto Parry", "Triggers parry on incoming dagger/projectile.", function(v) config.dagger_bypass=v; if v then Combat.start_auto_parry() else Combat.stop_auto_parry() end end)
@@ -2347,13 +2347,13 @@ tgl(es, "esp_dst",  "Distance",  "Draw studs distance.",        function(v) conf
 tgl(es, "esp_tr",   "Tracers",   "Line from bottom to enemy.",  function(v) config.esp_tracers=v; Visuals.start_esp() end)
 tgl(es, "esp_eo",   "Enemy Only","Skip teammates.",             function(v) config.esp_enemy_only=v end)
 tgl(es, "esp_tc",   "Team Color","Use the player's team color.",function(v) config.esp_team_color=v end)
-es:AddColorPicker("esp_col", { Default=Color3.fromRGB(0,255,180), Title="Box Color" }):OnChanged(function(v) config.esp_box_color=v end)
+pcall(function() es:AddLabel("Box Color"):AddColorPicker("esp_col", { Default=Color3.fromRGB(0,255,180), Title="Box Color" }):OnChanged(function(v) config.esp_box_color=v end) end)
 
 local ch = tab_visuals:AddLeftGroupbox("Chams")
 tgl(ch, "ch_e", "Chams", "Highlight each enemy.", function(v) config.chams_enabled=v; if v then Visuals.start_chams() else Visuals.stop_chams() end end)
 tgl(ch, "ch_w", "Through Walls", "Draw on top.", function(v) config.chams_wall=v end)
-ch:AddColorPicker("ch_fill", { Default=Color3.fromRGB(0,255,180), Title="Fill" }):OnChanged(function(v) config.chams_fill=v end)
-ch:AddColorPicker("ch_out",  { Default=Color3.fromRGB(0,0,0),     Title="Outline" }):OnChanged(function(v) config.chams_outline=v end)
+pcall(function() ch:AddLabel("Fill"):AddColorPicker("ch_fill", { Default=Color3.fromRGB(0,255,180), Title="Fill" }):OnChanged(function(v) config.chams_fill=v end) end)
+pcall(function() ch:AddLabel("Outline"):AddColorPicker("ch_out",  { Default=Color3.fromRGB(0,0,0),     Title="Outline" }):OnChanged(function(v) config.chams_outline=v end) end)
 
 local vf = tab_visuals:AddRightGroupbox("World FX")
 tgl(vf, "fb_e", "Fullbright",  "Ambient and brightness pinned high.", function(v) config.fullbright=v; if v then Visuals.start_fullbright() else Visuals.stop_fullbright() end end)
@@ -2362,7 +2362,7 @@ tgl(vf, "lg_e", "Low GFX",     "Disable particles/post effects.",     function(v
 
 local snap = tab_visuals:AddRightGroupbox("Snaplines")
 tgl(snap, "sl_e", "Snaplines", "Line from bottom of screen to each enemy.", function(v) config.snaplines=v; config.esp_tracers = v; Visuals.start_esp() end)
-snap:AddColorPicker("sl_c", { Default=Color3.fromRGB(0,255,180), Title="Line Color" }):OnChanged(function(v) config.snapline_color=v end)
+pcall(function() snap:AddLabel("Line Color"):AddColorPicker("sl_c", { Default=Color3.fromRGB(0,255,180), Title="Line Color" }):OnChanged(function(v) config.snapline_color=v end) end)
 
 -- WORLD -------------------------------------------------------------------
 local wf = tab_world:AddLeftGroupbox("Lighting / Atmo")
@@ -2394,7 +2394,7 @@ local mx = tab_misc:AddLeftGroupbox("Customization")
 tgl(mx, "md",  "Staff Detector", "Rejoin if staff joins.",             function(v) config.mod_detector=v; if v then getgenv().start_mod_detector() else getgenv().stop_mod_detector() end end)
 tgl(mx, "f_s", "Starborn Font",  "Change all GUI text font.",          function(v) config.starborn_enabled=v; if v then getgenv().start_starborn() else getgenv().stop_starborn() end end)
 tgl(mx, "chat","Chat Spam",      "Repeats a message in chat.",         function(v) config.chat_spam_enabled=v; if v then Combat.start_chat_spam() else Combat.stop_chat_spam() end end)
-mx:AddInput("chat_text", { Default="meowlua rivals", Text="Chat Line" }):OnChanged(function(v) config.chat_spam_text=v end)
+pcall(function() mx:AddInput("chat_text", { Default="meowlua rivals", Text="Chat Line", Numeric=false, Finished=false, Placeholder="Chat line" }):OnChanged(function(v) config.chat_spam_text=v end) end)
 mx:AddSlider("chat_d",   { Text="Chat Delay", Default=15, Min=5, Max=300, Rounding=0 }):OnChanged(function(v) config.chat_spam_delay=v/10 end)
 
 local mx2 = tab_misc:AddLeftGroupbox("Automation")
